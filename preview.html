@@ -4,20 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Preview</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto mt-10">
-        <div class="max-w-lg mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold text-center mb-6">Request Preview</h1>
-            <div id="previewContent"></div>
-            <div class="text-center mt-6">
-                <button type="button" id="printBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Download PDF</button>
-            </div>
-        </div>
-    </div>
+<body>
+    <div id="previewContent" style="margin: 20px; font-family: Arial, sans-serif;"></div>
+    <button id="downloadBtn" style="display: block; margin: 20px auto;">Download PDF</button>
 
     <script>
         // Extract URL parameters and display the form data in the preview
@@ -68,8 +60,8 @@
             doc.save('request_form.pdf');
         }
 
-        // Event listener for the Print button
-        document.getElementById("printBtn").addEventListener("click", function() {
+        // Event listener for the Download button
+        document.getElementById("downloadBtn").addEventListener("click", function() {
             const formData = getFormDataFromURL();
             generatePDF(formData); // Generate and download PDF
         });
