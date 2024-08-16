@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10">
+        <div class="max-w-lg mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold text-center mb-6">Request Preview</h1>
+            <div id="previewContent"></div>
+            <div class="text-center mt-6">
+                <button type="button" id="printBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Download PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extract URL parameters and display the form data in the preview
+        function getFormDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const formData = {
+                requesterName: urlParams.get('requesterName'),
+                requesterId: urlParams.get('requesterId'),
+                requestDate: urlParams.get('requestDate'),
+                requestCategory: urlParams.get('requestCategory'),
+                requiredApprovals: urlParams.get('requiredApprovals'),
+                urgency: urlParams.get('urgency'),
+                notes: urlParams.get('notes')
+            };
+            return formData;
+        }
+
+        // Display the form data in the preview section
+        function showPreview(formData) {
+            let previewHTML = `
+                <p><strong>Requester Name:</strong> ${formData.requesterName}</p>
+                <p><strong>Request ID:</strong> ${formData.requesterId}</p>
+                <p><strong>Request Date:</strong> ${formData.requestDate}</p>
+                <p><strong>Request Category:</strong> ${formData.requestCategory}</p>
+                <p><strong>Required Approvals:</strong> ${formData.requiredApprovals}</p>
+                <p><strong>Urgency:</strong> ${formData.urgency}</p>
+                <p><strong>Notes:</strong> ${formData.notes}</p>
+            `;
+            document.getElementById('previewContent').innerHTML = previewHTML;
+        }
+
+        // Generate PDF using jsPDF
+        function generatePDF(formData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add content to PDF
+            doc.text("Request Form Summary", 10, 10);
+            doc.text(`Requester Name: ${formData.requesterName}`, 10, 20);
+            doc.text(`Request ID: ${formData.requesterId}`, 10, 30);
+            doc.text(`Request Date: ${formData.requestDate}`, 10, 40);
+            doc.text(`Request Category: ${formData.requestCategory}`, 10, 50);
+            doc.text(`Required Approvals: ${formData.requiredApprovals}`, 10, 60);
+            doc.text(`Urgency: ${formData.urgency}`, 10, 70);
+            doc.text(`Notes: ${formData.notes}`, 10, 80);
+
+            // Automatically download the PDF
+            doc.save('request_form.pdf');
+        }
+
+        // Event listener for the Print button
+        document.getElementById("printBtn").addEventListener("click", function() {
+            const formData = getFormDataFromURL();
+            generatePDF(formData); // Generate and download PDF
+        });
+
+        // Load the preview when the page loads
+        window.onload = function() {
+            const formData = getFormDataFromURL(); // Get form data from URL
+            showPreview(formData); // Display the preview
+        };
+    </script>
+</body>
+</html>
