@@ -19,10 +19,10 @@
                     <input type="text" name="requester_name" id="requester_name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 
-                <!-- Requester ID -->
+                <!-- Request ID (auto-generated) -->
                 <div class="mb-4">
-                    <label for="requester_id" class="block text-sm font-medium text-gray-700">Requester ID</label>
-                    <input type="text" name="requester_id" id="requester_id" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                    <label for="requester_id" class="block text-sm font-medium text-gray-700">Generated Request ID</label>
+                    <input type="text" name="requester_id" id="requester_id" class="mt-1 block w-full px-3 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm" readonly>
                 </div>
 
                 <!-- Request Date -->
@@ -34,9 +34,15 @@
                 <!-- Request Category -->
                 <div class="mb-4">
                     <label for="request_category" class="block text-sm font-medium text-gray-700">Request Category</label>
-                    <select name="request_category" id="request_category" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
-                        <option value="Category 1">Category 1</option>
-                        <option value="Category 2">Category 2</option>
+                    <select name="request_category" id="request_category" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                        <option value="DEV">DEV</option>
+                        <option value="DEVOPS">DEVOPS</option>
+                        <option value="INFRA">INFRA</option>
+                        <option value="SEC">SEC</option>
+                        <option value="QA">QA</option>
+                        <option value="MON">MON</option>
+                        <option value="LEGAL">LEGAL</option>
+                        <option value="PA">PA</option>
                     </select>
                 </div>
 
@@ -77,6 +83,8 @@
 
     <!-- JavaScript for handling form and PDF generation -->
     <script>
+        let requestCounter = 1; // Initialize counter for request numbers
+
         // Initialize Flatpickr calendar
         function initializeCalendar() {
             flatpickr("#request_date", {
@@ -100,6 +108,19 @@
             return formData;
         }
 
+        // Generate the request ID in the format: {incremental number}/CRF-{Request category}-{Month}/{Year}
+        function generateRequestId() {
+            const category = document.getElementById("request_category").value;
+            const currentDate = new Date();
+            const month = currentDate.toLocaleString('default', { month: 'short' }); // Short month name (e.g., Jan, Feb)
+            const year = currentDate.getFullYear();
+
+            // Format: {incremental number}/CRF-{Request category}-{Month}/{Year}
+            const requestId = `${requestCounter}/CRF-${category}-${month}/${year}`;
+            requestCounter++; // Increment the counter for next use
+            return requestId;
+        }
+
         // Generate PDF using jsPDF
         function generatePDF(data) {
             const { jsPDF } = window.jspdf;
@@ -121,6 +142,9 @@
 
         // Event listener for button click
         document.getElementById("generatePdf").addEventListener("click", function() {
+            const requestId = generateRequestId(); // Generate the request ID
+            document.getElementById("requester_id").value = requestId; // Set the generated ID in the form
+
             const formData = getFormData(); // Get form data
             generatePDF(formData); // Generate PDF with form data
         });
