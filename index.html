@@ -68,11 +68,25 @@
                     <textarea name="notes" id="notes" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"></textarea>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Preview and Print Button -->
                 <div class="text-center">
-                    <button type="button" id="generatePdf" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Generate PDF</button>
+                    <button type="button" id="previewBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Preview Request</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div id="previewSection" class="container mx-auto mt-10 hidden">
+        <div class="max-w-lg mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold text-center mb-6">Request Preview</h1>
+            <div id="previewContent"></div>
+            <div class="text-center mt-6">
+                <button type="button" id="printBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Print Request</button>
+            </div>
+            <div class="text-center mt-4">
+                <button type="button" id="confirmBtn" class="bg-green-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-green-700">Submit Request</button>
+            </div>
         </div>
     </div>
 
@@ -81,7 +95,6 @@
     <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
-    <!-- JavaScript for handling form and PDF generation -->
     <script>
         let requestCounter = 1; // Initialize counter for request numbers
 
@@ -121,32 +134,38 @@
             return requestId;
         }
 
-        // Generate PDF using jsPDF
-        function generatePDF(data) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // Add content to PDF
-            doc.text("Request Form Summary", 10, 10);
-            doc.text(`Requester Name: ${data.requesterName}`, 10, 20);
-            doc.text(`Requester ID: ${data.requesterId}`, 10, 30);
-            doc.text(`Request Date: ${data.requestDate}`, 10, 40);
-            doc.text(`Request Category: ${data.requestCategory}`, 10, 50);
-            doc.text(`Required Approvals: ${data.requiredApprovals}`, 10, 60);
-            doc.text(`Urgency: ${data.urgency}`, 10, 70);
-            doc.text(`Notes: ${data.notes}`, 10, 80);
-
-            // Save the PDF
-            doc.save('request_form.pdf');
+        // Display the preview of the request
+        function showPreview(formData) {
+            let previewHTML = `
+                <p><strong>Requester Name:</strong> ${formData.requesterName}</p>
+                <p><strong>Request ID:</strong> ${formData.requesterId}</p>
+                <p><strong>Request Date:</strong> ${formData.requestDate}</p>
+                <p><strong>Request Category:</strong> ${formData.requestCategory}</p>
+                <p><strong>Required Approvals:</strong> ${formData.requiredApprovals}</p>
+                <p><strong>Urgency:</strong> ${formData.urgency}</p>
+                <p><strong>Notes:</strong> ${formData.notes}</p>
+            `;
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            document.getElementById('previewSection').classList.remove('hidden');
         }
 
-        // Event listener for button click
-        document.getElementById("generatePdf").addEventListener("click", function() {
+        // Print the request
+        function printRequest() {
+            window.print();
+        }
+
+        // Event listener for the Preview button
+        document.getElementById("previewBtn").addEventListener("click", function() {
             const requestId = generateRequestId(); // Generate the request ID
             document.getElementById("requester_id").value = requestId; // Set the generated ID in the form
 
             const formData = getFormData(); // Get form data
-            generatePDF(formData); // Generate PDF with form data
+            showPreview(formData); // Show the preview
+        });
+
+        // Event listener for the Print button
+        document.getElementById("printBtn").addEventListener("click", function() {
+            printRequest();
         });
 
         // Initialize the page
