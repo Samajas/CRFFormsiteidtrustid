@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flatpickr for the calendar plugin -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10">
+        <div class="max-w-lg mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold text-center mb-6">Request Form</h1>
+            <form id="requestForm">
+                <!-- Requester Name -->
+                <div class="mb-4">
+                    <label for="requester_name" class="block text-sm font-medium text-gray-700">Requester Name</label>
+                    <input type="text" name="requester_name" id="requester_name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                
+                <!-- Requester ID -->
+                <div class="mb-4">
+                    <label for="requester_id" class="block text-sm font-medium text-gray-700">Requester ID</label>
+                    <input type="text" name="requester_id" id="requester_id" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                </div>
+
+                <!-- Request Date -->
+                <div class="mb-4">
+                    <label for="request_date" class="block text-sm font-medium text-gray-700">Request Date</label>
+                    <input type="text" name="request_date" id="request_date" class="flatpickr mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                </div>
+
+                <!-- Request Category -->
+                <div class="mb-4">
+                    <label for="request_category" class="block text-sm font-medium text-gray-700">Request Category</label>
+                    <select name="request_category" id="request_category" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
+                        <option value="Category 1">Category 1</option>
+                        <option value="Category 2">Category 2</option>
+                    </select>
+                </div>
+
+                <!-- Required Approvals -->
+                <div class="mb-4">
+                    <label for="required_approvals" class="block text-sm font-medium text-gray-700">Required Approvals</label>
+                    <input type="text" name="required_approvals" id="required_approvals" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
+                </div>
+
+                <!-- Urgency -->
+                <div class="mb-4">
+                    <label for="urgency" class="block text-sm font-medium text-gray-700">Urgency</label>
+                    <select name="urgency" id="urgency" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+
+                <!-- Notes -->
+                <div class="mb-4">
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                    <textarea name="notes" id="notes" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="button" id="generatePdf" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Generate PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
