@@ -8,8 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <div id="previewContent" style="margin: 20px; font-family: Arial, sans-serif;"></div>
-    <button id="downloadBtn" style="display: block; margin: 20px auto;">Download PDF</button>
+    <div id="previewContent" style="margin: 20px; font-family: Arial, sans-serif; max-width: 600px;">
+        <h2 style="text-align: center;">CRF Application Request Summary</h2>
+    </div>
+    <button id="downloadBtn" style="display: block; margin: 20px auto; padding: 10px 20px; background-color: #4A90E2; color: white; border: none; border-radius: 5px; cursor: pointer;">Download PDF</button>
 
     <script>
         // Extract URL parameters and display the form data in the preview
@@ -30,13 +32,13 @@
         // Display the form data in the preview section
         function showPreview(formData) {
             let previewHTML = `
-                <p><strong>Requester Name:</strong> ${formData.requesterName}</p>
+                <p><strong>Name of Applicant:</strong> ${formData.requesterName}</p>
                 <p><strong>Request ID:</strong> ${formData.requesterId}</p>
-                <p><strong>Request Date:</strong> ${formData.requestDate}</p>
-                <p><strong>Request Category:</strong> ${formData.requestCategory}</p>
+                <p><strong>Application Date:</strong> ${formData.requestDate}</p>
+                <p><strong>Category of Request:</strong> ${formData.requestCategory}</p>
                 <p><strong>Required Approvals:</strong> ${formData.requiredApprovals}</p>
-                <p><strong>Urgency:</strong> ${formData.urgency}</p>
-                <p><strong>Notes:</strong> ${formData.notes}</p>
+                <p><strong>Urgency Level:</strong> ${formData.urgency}</p>
+                <p><strong>Additional Information / Notes:</strong> ${formData.notes}</p>
             `;
             document.getElementById('previewContent').innerHTML = previewHTML;
         }
@@ -47,17 +49,19 @@
             const doc = new jsPDF();
 
             // Add content to PDF
-            doc.text("Request Form Summary", 10, 10);
-            doc.text(`Requester Name: ${formData.requesterName}`, 10, 20);
-            doc.text(`Request ID: ${formData.requesterId}`, 10, 30);
-            doc.text(`Request Date: ${formData.requestDate}`, 10, 40);
-            doc.text(`Request Category: ${formData.requestCategory}`, 10, 50);
-            doc.text(`Required Approvals: ${formData.requiredApprovals}`, 10, 60);
-            doc.text(`Urgency: ${formData.urgency}`, 10, 70);
-            doc.text(`Notes: ${formData.notes}`, 10, 80);
+            doc.setFontSize(16);
+            doc.text("CRF Application Request Summary", 105, 20, null, null, 'center');
+            doc.setFontSize(12);
+            doc.text(`Name of Applicant: ${formData.requesterName}`, 20, 40);
+            doc.text(`Request ID: ${formData.requesterId}`, 20, 50);
+            doc.text(`Application Date: ${formData.requestDate}`, 20, 60);
+            doc.text(`Category of Request: ${formData.requestCategory}`, 20, 70);
+            doc.text(`Required Approvals: ${formData.requiredApprovals}`, 20, 80);
+            doc.text(`Urgency Level: ${formData.urgency}`, 20, 90);
+            doc.text(`Additional Information / Notes: ${formData.notes}`, 20, 100);
 
             // Automatically download the PDF
-            doc.save('request_form.pdf');
+            doc.save('CRF_Application_Request.pdf');
         }
 
         // Event listener for the Download button

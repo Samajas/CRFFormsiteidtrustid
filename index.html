@@ -11,50 +11,50 @@
 <body class="bg-gray-100">
     <div class="container mx-auto mt-10">
         <div class="max-w-lg mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold text-center mb-6">Request Form</h1>
+            <h1 class="text-2xl font-bold text-center mb-6">CRF Application Request Form</h1>
             <form id="requestForm">
-                <!-- Requester Name -->
+                <!-- Requester Information -->
                 <div class="mb-4">
-                    <label for="requester_name" class="block text-sm font-medium text-gray-700">Requester Name</label>
-                    <input type="text" name="requester_name" id="requester_name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                    <label for="requester_name" class="block text-sm font-medium text-gray-700">Name of Applicant</label>
+                    <input type="text" name="requester_name" id="requester_name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Enter your name" required>
                 </div>
-                
+
                 <!-- Request ID (auto-generated) -->
                 <div class="mb-4">
                     <label for="requester_id" class="block text-sm font-medium text-gray-700">Generated Request ID</label>
                     <input type="text" name="requester_id" id="requester_id" class="mt-1 block w-full px-3 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm" readonly>
                 </div>
 
-                <!-- Request Date -->
+                <!-- Application Date -->
                 <div class="mb-4">
-                    <label for="request_date" class="block text-sm font-medium text-gray-700">Request Date</label>
-                    <input type="text" name="request_date" id="request_date" class="flatpickr mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
+                    <label for="request_date" class="block text-sm font-medium text-gray-700">Application Date</label>
+                    <input type="text" name="request_date" id="request_date" class="flatpickr mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Select date" required>
                 </div>
 
                 <!-- Request Category -->
                 <div class="mb-4">
-                    <label for="request_category" class="block text-sm font-medium text-gray-700">Request Category</label>
+                    <label for="request_category" class="block text-sm font-medium text-gray-700">Category of Request</label>
                     <select name="request_category" id="request_category" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
-                        <option value="DEV">DEV</option>
-                        <option value="DEVOPS">DEVOPS</option>
-                        <option value="INFRA">INFRA</option>
-                        <option value="SEC">SEC</option>
-                        <option value="QA">QA</option>
-                        <option value="MON">MON</option>
-                        <option value="LEGAL">LEGAL</option>
-                        <option value="PA">PA</option>
+                        <option value="DEV">Development (DEV)</option>
+                        <option value="DEVOPS">DevOps (DEVOPS)</option>
+                        <option value="INFRA">Infrastructure (INFRA)</option>
+                        <option value="SEC">Security (SEC)</option>
+                        <option value="QA">Quality Assurance (QA)</option>
+                        <option value="MON">Monitoring (MON)</option>
+                        <option value="LEGAL">Legal (LEGAL)</option>
+                        <option value="PA">Project Administration (PA)</option>
                     </select>
                 </div>
 
                 <!-- Required Approvals -->
                 <div class="mb-4">
-                    <label for="required_approvals" class="block text-sm font-medium text-gray-700">Required Approvals</label>
-                    <input type="text" name="required_approvals" id="required_approvals" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
+                    <label for="required_approvals" class="block text-sm font-medium text-gray-700">Required Approvals (if any)</label>
+                    <input type="text" name="required_approvals" id="required_approvals" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Enter required approvals">
                 </div>
 
                 <!-- Urgency -->
                 <div class="mb-4">
-                    <label for="urgency" class="block text-sm font-medium text-gray-700">Urgency</label>
+                    <label for="urgency" class="block text-sm font-medium text-gray-700">Urgency Level</label>
                     <select name="urgency" id="urgency" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
@@ -62,10 +62,10 @@
                     </select>
                 </div>
 
-                <!-- Notes -->
+                <!-- Additional Notes -->
                 <div class="mb-4">
-                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
-                    <textarea name="notes" id="notes" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"></textarea>
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Additional Information / Notes</label>
+                    <textarea name="notes" id="notes" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Provide additional details (optional)"></textarea>
                 </div>
 
                 <!-- Preview Button -->
